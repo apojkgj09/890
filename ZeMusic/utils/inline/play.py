@@ -1,5 +1,6 @@
 import math
-from config import SUPPORT_CHAT, OWNER_USERNAME
+import config
+from config import SUPPORT_CHANNEL, OWNER_USERNAME
 from pyrogram.types import InlineKeyboardButton
 from ZeMusic.utils.formatters import time_to_seconds
 
@@ -69,14 +70,14 @@ def stream_markup_timer(_, chat_id, played, dur):
 
                 text="ᴜᴘᴅᴀᴛᴇ",
 
-                url=f"t.me/C0DE_SEARCH",
+                url=f"{SUPPORT_CHANNEL}",
 
             ),
             InlineKeyboardButton(
 
                 text="sᴜᴘᴘᴏʀᴛ",
 
-                url=f"t.me/AsuraaSupports",
+                url=f"{SUPPORT_CHANNEL}",
 
             ),
         ],
