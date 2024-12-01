@@ -99,7 +99,7 @@ async def song_downloader(client, message: Message):
         await m.delete()
 
     except Exception as e:
-        await m.edit(f"error, wait for bot owner to fix\n\nError: {str(e)}")
+        await m.edit(f"حدث خطأ أثناء البحث تواصل مع مطور البوت")
         print(e)
 
     # حذف الملفات المؤقتة
