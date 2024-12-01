@@ -39,11 +39,6 @@
         "value": "",
         "required": true
       },
-      "START_IMG_URL": {
-        "description": "رابط صوره start او اتركه كما هو.",
-        "value": "https://te.legra.ph/file/e8bdc13568a49de93b071.jpg",
-        "required": true
-      },
       "MONGO_DB_URI": {
         "description": "لا تغيره. او قم بانشاء قاعده البيانات. الشرح https://t.me/EF_19/2.",
         "value": "",
