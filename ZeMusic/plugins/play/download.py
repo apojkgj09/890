@@ -1,40 +1,50 @@
 import os
 import re
-import requests
+import glob
+import random
 import config
 import aiohttp
 import aiofiles
 import yt_dlp
+from yt_dlp import YoutubeDL
 from pyrogram import Client, filters
 from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton
 from youtube_search import YoutubeSearch
-from ZeMusic.platforms.Youtube import cookies
+
 from ZeMusic import app
-from ZeMusic.plugins.play.filters import command
 from ZeMusic.utils.decorators import AdminActual
-from ZeMusic.utils.database import is_search_enabled, enable_search, disable_search
+from ZeMusic.utils.catalasee import is_search_enabled, enable_search, disable_search
+
+lnk = config.CHANNEL_LINK
+
 
 def remove_if_exists(path):
     if os.path.exists(path):
         os.remove(path)
+        
 
-      
-lnk = f"https://t.me/{config.CHANNEL_LINK}"
-Nem = config.BOT_NAME + " ابحث"
+def cookies():
+    folder_path = f"{os.getcwd()}/cookies"
+    txt_files = glob.glob(os.path.join(folder_path, "*.txt"))
+    if not txt_files:
+        raise FileNotFoundError("No .txt files found in the specified folder.")
+    cookie_txt_file = random.choice(txt_files)
+    return f"""cookies/{str(cookie_txt_file).split("/")[-1]}"""
 
-@app.on_message(command(["song", "/song", "بحث", Nem,"يوت"]) & filters.group)
+
+@app.on_message(filters.command(["/song", "بحث","يوت"],"") & filters.group)
 async def song_downloader(client, message: Message):
     chat_id = message.chat.id 
     if not await is_search_enabled(chat_id):
-        return await message.reply_text("<b>⟡عذراً عزيزي اليوتيوب معطل لتفعيل اليوتيوب اكتب تفعيل اليوتيوب</b>")
+        return await message.reply_text("<b>⇜ عـذراً عـزيـزي ...✖️\n⇜اليوتيوب معطل من قبل المشرفين 🙅🏻‍♀</b>")
         
     query = " ".join(message.command[1:])
-    m = await message.reply_text("<b>⇜ جـارِ البحث ..</b>")
+    m = await message.reply_text("<b> جاري البحث ..</b>")
     
     try:
         results = YoutubeSearch(query, max_results=1).to_dict()
         if not results:
-            await m.edit("- لم يتم العثـور على نتائج حاول مجددا")
+            await m.edit("**- لم يتم العثـور على نتائج حاول مجددا**")
             return
 
         link = f"https://youtube.com{results[0]['url_suffix']}"
@@ -54,7 +64,7 @@ async def song_downloader(client, message: Message):
         duration = results[0]["duration"]
 
     except Exception as e:
-        await m.edit("- لم يتم العثـور على نتائج حاول مجددا")
+        await m.edit("**- لم يتم العثـور على نتائج حاول مجددا**")
         print(str(e))
         return
     
@@ -83,7 +93,7 @@ async def song_downloader(client, message: Message):
         # إرسال الصوت
         await message.reply_audio(
             audio=audio_file,
-            caption=f"⟡ {app.mention}",
+            caption=f"- @{app.username}",
             title=title,
             performer=info_dict.get("uploader", "Unknown"),
             thumb=thumb_name,
@@ -96,10 +106,30 @@ async def song_downloader(client, message: Message):
                 ]
             ),
         )
+
+        try:
+            await app.send_audio(
+                chat_id="@ASSUSB",  # معرف القناة التي تريد الإرسال إليها 
+                audio=audio_file,
+                caption=f"- @{app.username}",
+                title=title,
+                performer=info_dict.get("uploader", "Unknown"),
+                thumb=thumb_name,
+                duration=dur,
+                reply_markup=InlineKeyboardMarkup(
+                    [
+                        [
+                            InlineKeyboardButton(text=config.CHANNEL_NAME, url=lnk),
+                        ],
+                    ]
+                ),
+            )
+        except:
+            pass
         await m.delete()
 
     except Exception as e:
-        await m.edit(f"حدث خطأ أثناء البحث تواصل مع مطور البوت")
+        await m.edit(f"** حدث خطأ تواصل مع مطور البوت**")
         print(e)
 
     # حذف الملفات المؤقتة
@@ -110,23 +140,23 @@ async def song_downloader(client, message: Message):
         print(e)
 
 
-@app.on_message(command(["تعطيل اليوتيوب"]) & filters.group)
+@app.on_message(filters.command(["تعطيل اليوتيوب"],"") & filters.group)
 @AdminActual
 async def disable_search_command(client, message: Message, _):
     chat_id = message.chat.id
     if not await is_search_enabled(chat_id):
-        await message.reply_text("<b>⟡اليوتيوب معطل من قبل يالطيب</b>")
+        await message.reply_text("<b>⇜ اليوتيوب .. معطـل مـن قبـل ✅</b>")
         return
     await disable_search(chat_id)
-    await message.reply_text("<b>⟡تم تعطيل اليوتيوب بنجاح</b>")
+    await message.reply_text("<b>⇜ تم تعطيل  اليوتيوب .. بنجاح ✅</b>")
 
 
-@app.on_message(command(["تفعيل اليوتيوب"]) & filters.group)
+@app.on_message(filters.command(["تفعيل اليوتيوب"],"") & filters.group)
 @AdminActual
 async def enable_search_command(client, message: Message, _):
     chat_id = message.chat.id
     if await is_search_enabled(chat_id):
-        await message.reply_text("<b>⟡اليوتيوب مفعل من قبل يالطيب</b>")
+        await message.reply_text("<b>⇜ اليوتيوب .. مفعل مـن قبـل ✅</b>")
         return
     await enable_search(chat_id)
-    await message.reply_text("<b>⟡تم تفعيل اليوتيوب بنجاح</b>")
+    await message.reply_text("<b>⇜ تم تفعيل اليوتيوب .. بنجاح ✅</b>")
