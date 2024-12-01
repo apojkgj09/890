@@ -13,7 +13,7 @@ from youtube_search import YoutubeSearch
 
 from ZeMusic import app
 from ZeMusic.utils.decorators import AdminActual
-from ZeMusic.utils.catalasee import is_search_enabled, enable_search, disable_search
+from ZeMusic.utils.database import is_search_enabled1, enable_search1, disable_search1
 
 lnk = config.CHANNEL_LINK
 
