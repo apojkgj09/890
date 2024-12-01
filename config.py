@@ -17,13 +17,16 @@ OWNER_USERNAME = getenv("OWNER_USERNAME", "PHPSB")
 # Get your mongo url from cloud.mongodb.com
 MONGO_DB_URI = getenv("MONGO_DB_URI","mongodb+srv://din80:din80@ali80.ghsco.mongodb.net/?retryWrites=true&w=majority&appName=ali80")
 
+# https://batbin.me
+COOKIES = getenv("COOKIES", None)
+
 DURATION_LIMIT_MIN = int(getenv("DURATION_LIMIT", 480))
 
 # Chat id of a group for logging bot s activities
-LOGGER_ID = int(getenv("LOGGER_ID","-1001756578463"))
+LOGGER_ID = int(getenv("LOGGER_ID",""))
 
 # Get this value from @FallenxBot on Telegram by /id
-OWNER_ID = int(getenv("OWNER_ID", 5145609515))
+OWNER_ID = int(getenv("OWNER_ID", 6227985448))
 
 ## Fill these variables if you re deploying on heroku.
 # Your heroku app name
