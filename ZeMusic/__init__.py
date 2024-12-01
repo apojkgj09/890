@@ -1,5 +1,4 @@
 from ZeMusic.core.bot import Mody
-from ZeMusic.core.cookies import save_cookies
 from ZeMusic.core.dir import dirr
 from ZeMusic.core.git import git
 from ZeMusic.core.userbot import Userbot
@@ -11,7 +10,6 @@ dirr()
 git()
 dbb()
 heroku()
-save_cookies()
 app = Mody()
 userbot = Userbot()
 
