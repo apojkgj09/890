@@ -24,11 +24,6 @@
         "value": "986cb4ba434870a62fe96da3b5f6d411",
         "required": true
       },
-      "COOKIES": {
-        "description": "Paste your batbin link.",
-        "value": "https://batbin.me/raw/",
-        "required": true
-      },
       "BOT_NAME": {
         "description": "اسم البوت بالعربي.",
         "value": "",
