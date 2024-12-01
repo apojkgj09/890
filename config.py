@@ -13,7 +13,7 @@ API_HASH = getenv("API_HASH","986cb4ba434870a62fe96da3b5f6d411")
 # Get your token from @BotFather on Telegram.
 BOT_TOKEN = getenv("BOT_TOKEN")
 BOT_NAME = getenv("BOT_NAME","نيو")
-GPT_NAME = getenv("GPT_NAME","")
+OWNER_USERNAME = getenv("OWNER_USERNAME", "PHPSB")
 # Get your mongo url from cloud.mongodb.com
 MONGO_DB_URI = getenv("MONGO_DB_URI","mongodb+srv://din80:din80@ali80.ghsco.mongodb.net/?retryWrites=true&w=majority&appName=ali80")
 
@@ -40,7 +40,8 @@ APK = 5140000000
 GIT_TOKEN = getenv(
     "GIT_TOKEN", None
 )  # Fill this variable if your upstream repository is private
-
+SUPPORT_CHANNEL = getenv(
+    "SUPPORT_CHANNEL", "https://t.me/UI_IUB")
 CHANNEL_NAME = getenv("CHANNEL_NAME", "🧚‍♀")
 CHANNEL_LINK = getenv("CHANNEL_LINK", "UI_IUB")
 SUPPORT_CHAT = getenv("SUPPORT_CHAT", "https://t.me/UI_IUB")
