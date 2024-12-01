@@ -23,13 +23,13 @@ def remove_if_exists(path):
         os.remove(path)
         
 
-def cookies():
-    folder_path = f"{os.getcwd()}/cookies"
-    txt_files = glob.glob(os.path.join(folder_path, "*.txt"))
+def get_cookies_file():
+    folder_path = f"{os.getcwd()}/Auput/utils/cookies"
+    txt_files = glob.glob(os.path.join(folder_path, '*.txt'))
     if not txt_files:
         raise FileNotFoundError("No .txt files found in the specified folder.")
     cookie_txt_file = random.choice(txt_files)
-    return f"""cookies/{str(cookie_txt_file).split("/")[-1]}"""
+    return cookie_txt_file
 
 
 @app.on_message(filters.command(["/song", "بحث","يوت"],"") & filters.group)
@@ -76,7 +76,7 @@ async def song_downloader(client, message: Message):
         "geo_bypass": True,
         "outtmpl": f"{title_clean}.%(ext)s",  # استخدام اسم نظيف للملف
         "quiet": True,
-        "cookiefile": f"{cookies()}",
+        "cookiefile": get_cookies_file()
     }
 
     try:
