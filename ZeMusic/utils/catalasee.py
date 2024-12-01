@@ -4,9 +4,9 @@ from typing import Dict, List, Union
 
 
 
-from YukkiMusic import userbot
+from ZeMusic import userbot
 
-from YukkiMusic.core.mongo import mongodb
+from ZeMusic.core.mongo import mongodb
 
 
 
