@@ -1,5 +1,5 @@
 from ZeMusic.core.bot import Mody
-from YukkiMusic.core.cookies import save_cookies
+from ZeMusic.core.cookies import save_cookies
 from ZeMusic.core.dir import dirr
 from ZeMusic.core.git import git
 from ZeMusic.core.userbot import Userbot
